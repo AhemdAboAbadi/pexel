@@ -2,16 +2,15 @@ const fs = require('fs');
 const path = require('path');
 
 const extentions = {
-  '.css': 'text/css',
-  '.js': 'text/javascript',
-  '.html': 'text/html',
+  'css': 'text/css',
+  'js': 'text/javascript',
+  'html': 'text/html',
 };
 
 const router = (request, response) => {
   const endPoint = request.url;
   const reqMethod = request.method;
-
-  const extinsion = path.extname(endPoint);
+  const extinsion = endPoint.split(".")[1];
 
   // index.html end point
   if (endPoint === '/' && reqMethod === 'GET') {
@@ -39,7 +38,7 @@ const router = (request, response) => {
 
       } else {
 
-        response.writeHead(200, { 'Content-Type': extentions[ext] });
+        response.writeHead(200, { 'Content-Type':extentions[extinsion]});
         response.end(file);
 
       }
