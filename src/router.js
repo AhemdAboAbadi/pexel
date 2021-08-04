@@ -1,31 +1,25 @@
 const fs = require('fs');
 const path = require('path');
+const homeHandler = require('./handler.js');
 
 const extentions = {
-  '.css': 'text/css',
-  '.js': 'text/javascript',
-  '.html': 'text/html',
+  'css': 'text/css',
+  'js': 'text/javascript',
+  'html': 'text/html',
 };
+
+
 
 const router = (request, response) => {
   const endPoint = request.url;
   const reqMethod = request.method;
 
-  const extinsion = path.extname(endPoint);
+  const extinsion = endPoint.split('.')[1];
 
   // index.html end point
   if (endPoint === '/' && reqMethod === 'GET') {
-    const filePath = path.join(__dirname, '..', 'public', 'index.html');
 
-    fs.readFile(filePath, (err, file) => {
-      if (err) {
-        response.writeHead(500, { 'Content-Type': 'text/html' });
-        response.end('<h1> server error</h1>');
-      } else {
-        response.writeHead(200, { 'Content-Type': 'text/html' });
-        response.end(file);
-      }
-    });
+    homeHandler(response);
 
     //static files end point
   } else if (extinsion) {
@@ -39,7 +33,7 @@ const router = (request, response) => {
 
       } else {
 
-        response.writeHead(200, { 'Content-Type': extentions[ext] });
+        response.writeHead(200, { 'Content-Type': extentions[extinsion] });
         response.end(file);
 
       }
