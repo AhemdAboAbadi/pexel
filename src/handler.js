@@ -2,58 +2,67 @@ const fs = require('fs');
 const path = require('path');
 
 const extentions = {
-    'css': 'text/css',
-    'js': 'text/javascript',
-    'html': 'text/html',
+  css: 'text/css',
+  js: 'text/javascript',
+  html: 'text/html',
 };
 
-
-function serverError(response) {
-    response.writeHead(500, { 'Content-Type': extentions['html'] });
-    response.end('<h1> server error</h1>');
-}
-
+const serverError = (response, type = 'html', err) => {
+  if (type === 'html') {
+    response.writeHead(500, { 'Content-Type': extentions.html });
+    response.end('<h1>500 | server error</h1>');
+  } else if (type === 'json') {
+    response.writeHead(500, { 'Content-Type': 'application/json' });
+    response.end(JSON.stringify(err));
+  }
+};
 
 // home page handler
-function homeHandler(response) {
+const homeHandler = (response) => {
+  const filePath = path.join(__dirname, '..', 'public', 'index.html');
 
-    const filePath = path.join(__dirname, '..', 'public', 'index.html');
-
-    fs.readFile(filePath, (err, file) => {
-        if (err) {
-
-            serverError(response);
-
-        } else {
-            response.writeHead(200, { 'Content-Type': extentions['html'] });
-            response.end(file);
-        }
-    });
-}
+  fs.readFile(filePath, (err, file) => {
+    if (err) {
+      serverError(response);
+    } else {
+      response.writeHead(200, { 'Content-Type': extentions.html });
+      response.end(file);
+    }
+  });
+};
 
 // static files handler
-function publicHandler(response, endPoint) {
+const publicHandler = (response, endPoint) => {
+  const extinsion = endPoint.split('.')[1];
 
-    const extinsion = endPoint.split('.')[1];
+  const filePath = path.join(__dirname, '..', 'public', endPoint);
 
-    const filePath = path.join(__dirname, '..', 'public', endPoint);
+  fs.readFile(filePath, (err, file) => {
+    if (err) {
+      serverError(response);
+    } else {
+      response.writeHead(200, { 'Content-Type': extentions[extinsion] });
+      response.end(file);
+    }
+  });
+};
 
-    fs.readFile(filePath, (err, file) => {
-        if (err) {
+const searchHandler = (response, endPoint) => {
+  const pahtFile = path.join(__dirname, 'data.json');
 
-            serverError(response);
+  fs.readFile(pahtFile, 'utf8', (err, data) => {
+    if (err) {
+      serverError(response, 'json', err);
+    } else {
 
-        } else {
+      // filter the data and return it in the response
 
-            response.writeHead(200, { 'Content-Type': extentions[extinsion] });
-            response.end(file);
-
-        }
-    });
-}
-
+    }
+  });
+};
 
 module.exports = {
-    homeHandler,
-    publicHandler
+  homeHandler,
+  publicHandler,
+  searchHandler,
 };

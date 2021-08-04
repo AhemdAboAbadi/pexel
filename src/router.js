@@ -1,10 +1,4 @@
-const fs = require('fs');
-const path = require('path');
-const { homeHandler, publicHandler } = require('./handler.js');
-
-
-
-
+const { homeHandler, publicHandler, searchHandler } = require('./handler');
 
 const router = (request, response) => {
   const endPoint = request.url;
@@ -14,32 +8,18 @@ const router = (request, response) => {
 
   // index.html end point
   if (endPoint === '/' && reqMethod === 'GET') {
-
     homeHandler(response);
 
-    //static files end point
+    // static files end point
   } else if (extinsion) {
-
     publicHandler(response, endPoint);
 
     // search end point
   } else if (endPoint.includes('/search')) {
-
-    fs.readFile(pathFile, 'utf8', (err, data) => {
-      if (err) {
-        response.writeHead(500, { 'Content-Type': 'application/json' });
-        response.end(JSON.stringify(err));
-      } else {
-
-        // filter the data and return it in the response
-
-      }
-    });
+    searchHandler(response, endPoint);
   } else {
-
     response.writeHead(404, { 'Content-Type': 'text/html' });
     response.end('<h1>404 Page Not Found</h1>');
-
   }
 };
 
