@@ -1,12 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-const homeHandler = require('./handler.js');
+const { homeHandler, publicHandler } = require('./handler.js');
 
-const extentions = {
-  'css': 'text/css',
-  'js': 'text/javascript',
-  'html': 'text/html',
-};
+
 
 
 
@@ -23,21 +19,8 @@ const router = (request, response) => {
 
     //static files end point
   } else if (extinsion) {
-    const filePath = path.join(__dirname, '..', 'public', endPoint);
 
-    fs.readFile(filePath, (err, file) => {
-      if (err) {
-
-        response.writeHead(500, { 'Content-Type': 'text/html' });
-        response.end('<h1> server error</h1>');
-
-      } else {
-
-        response.writeHead(200, { 'Content-Type': extentions[extinsion] });
-        response.end(file);
-
-      }
-    });
+    publicHandler(response, endPoint);
 
     // search end point
   } else if (endPoint.includes('/search')) {
