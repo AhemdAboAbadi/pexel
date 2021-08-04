@@ -24,21 +24,6 @@ test('when request search with query should return json', (done) => {
     'tulip',
     'transportation',
     'treetrunk',
-    'texture',
-    'text',
-    'transportation',
-    'telescope',
-    'tire',
-    'triangle',
-    'texture',
-    'tripod',
-    'traintrack',
-    'treetrunk',
-    'toast',
-    'teapot',
-    'tablelamp',
-    'tropical',
-    'tablecloth',
   ];
   request(router)
     .get('/search?q=t')
