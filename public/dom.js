@@ -6,6 +6,10 @@ const search = document.querySelector('#search');
 const menuLines = document.querySelector('.menu_lines');
 const main = document.querySelector('main');
 const autocompleteContent = document.querySelector('#autocomplete-content');
+const bowlRecorde = document.querySelector('.svg_recorde');
+const wordsListen = document.querySelector('.words_listen span');
+const closePopVoice = document.querySelector('.close_pop_voice');
+const popListenVoice = document.querySelector('.pop_listen_voice');
 
 const removeChild = (parent) => {
   while (parent.firstChild) {
