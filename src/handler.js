@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const querystring = require('querystring');
 
 const extentions = {
   css: 'text/css',
@@ -48,17 +49,19 @@ const publicHandler = (response, endPoint) => {
 };
 
 const searchHandler = (response, endPoint) => {
-  const pahtFile = path.join(__dirname, 'data.json');
+  const query = querystring.parse(endPoint.split('?')[1]);
+  console.log('query: ', query.txt);
+  // const pahtFile = path.join(__dirname, 'data.json');
 
-  fs.readFile(pahtFile, 'utf8', (err, data) => {
-    if (err) {
-      serverError(response, 'json', err);
-    } else {
+  // fs.readFile(pahtFile, 'utf8', (err, data) => {
+  //   if (err) {
+  //     serverError(response, 'json', err);
+  //   } else {
 
-      // filter the data and return it in the response
+  //     // filter the data and return it in the response
 
-    }
-  });
+  //   }
+  // });
 };
 
 module.exports = {

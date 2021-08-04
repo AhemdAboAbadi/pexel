@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-plusplus */
 const myLines = [
   'grove',
@@ -52,19 +53,19 @@ search.addEventListener('keyup', () => {
     return;
   }
   // for
-  removeChild(menuLines);
+  // removeChild(menuLines);
   contentAutoComplete.classList.add('show');
-  let lineAutoNow = [];
-  //for loop word start like query
+  const lineAutoNow = [];
+  // for loop word start like query
   for (let i = 0; i < myLines.length; i++) {
     if (myLines[i].startsWith(query) && lineAutoNow.length <= 7) {
       lineAutoNow.push(myLines[i]);
     }
   }
 
-  //for loop new array that send new data to html
+  // for loop new array that send new data to html
   for (let j = 0; j < lineAutoNow.length; j++) {
-    let li = document.createElement('li');
+    const li = document.createElement('li');
     li.classList.add('line_option');
     li.textContent = lineAutoNow[j];
     menuLines.appendChild(li);
