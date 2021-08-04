@@ -16,8 +16,9 @@ const fetch = (url, cb) => {
   xhr.open('GET', url);
   xhr.send();
 };
-fetch(ImgOfUnsplash, (data) =>{
-  for (let index = 0; index < 50; index++) {
+
+fetch(ImgOfUnsplash, (data) => {
+  for (let index = 0; index < 10; index++) {
     const imgFromTheUnsplash = data[index].urls.small;
     console.log(imgFromTheUnsplash);
   }
