@@ -41,3 +41,30 @@ searchBtn.addEventListener('click', () => {
   removeChild(main);
   getImages(globalQuery);
 });
+
+voiceBtn.addEventListener('click', () => {
+  popListenVoice.classList.add('show');
+  wordsListen.textContent = '';
+  window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const recognition = new SpeechRecognition();
+  recognition.interimResults = true;
+  recognition.lang = 'en-US';
+  let valueLisign;
+  recognition.addEventListener('result', (e) => {
+    valueLisign = e.results[0][0].transcript;
+    wordsListen.textContent = valueLisign;
+    bowlRecorde.style.animationPlayState = 'running';
+  });
+  recognition.start();
+  recognition.addEventListener('end', () => {
+    bowlRecorde.style.animationPlayState = 'paused';
+    query = valueLisign;
+    removeChild(main);
+    getImages(query);
+    popListenVoice.classList.remove('show');
+  });
+});
+
+closePopVoice.addEventListener('click', () => {
+  popListenVoice.classList.remove('show');
+});
