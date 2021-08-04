@@ -1,21 +1,58 @@
+/* eslint-disable no-undef */
+// eslint-disable-next-line import/no-extraneous-dependencies
 const request = require('supertest');
 const router = require('./router');
 const filter = require('./utils');
-const data = require('./data.json');
+const dataObject = require('./data.json');
 
 test('when request home page get 200 status code', (done) => {
   request(router)
     .get('/')
     .expect(200)
     .expect('Content-Type', 'text/html')
-    .end((err, data) => {
+    .end((err) => {
       if (err) {
-        done(err);
-      } else {
-        return done();
+        return done(err);
       }
+      return done();
     });
 });
+test('when request search with query should return json', (done) => {
+  const dataExpect = [
+    'tree',
+    'trademark',
+    'tulip',
+    'transportation',
+    'treetrunk',
+    'texture',
+    'text',
+    'transportation',
+    'telescope',
+    'tire',
+    'triangle',
+    'texture',
+    'tripod',
+    'traintrack',
+    'treetrunk',
+    'toast',
+    'teapot',
+    'tablelamp',
+    'tropical',
+    'tablecloth',
+  ];
+  request(router)
+    .get('/search?q=t')
+    .expect(302)
+    .expect('Content-Type', 'application/json')
+    .end((err, data) => {
+      if (err) {
+        return done(err);
+      }
+      expect(dataExpect).toEqual(data.body);
+      return done();
+    });
+});
+
 // test filter function
 test('when user type value should this function return array', () => {
   const expected = [
@@ -41,6 +78,6 @@ test('when user type value should this function return array', () => {
     'rubble', 'rural', 'road', 'robe',
     'roadsign', 'ripple',
   ];
-  const actual = filter('r', data);
+  const actual = filter('r', dataObject);
   expect(expected).toEqual(actual);
 });
