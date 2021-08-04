@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ِAuto Complete</title>
+    <link rel="shortcut icon" href="https://freeiconshop.com/wp-content/uploads/edd/search-flat.png" type="image/png">
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
@@ -13,18 +14,18 @@
   <body>
     <nav>
       <div class="content_nav">
-        <div class="icon_voice">
+        <div class="icon_voice" id="voice-icon">
           <i class="far fa-microphone"></i>
         </div>
         <div class="search_bowl">
-          <div class="icon_search">
+          <div class="icon_search" id="search-icon">
             <i class="fas fa-search"></i>
           </div>
           <div class="input_Search">
-            <input type="text" name="search" id="search" class="search" />
+            <input type="text" name="q" id="search" class="search" autocomplete="no"/>
           </div>
         </div>
-        <div class="content_auto_complete">
+        <div id="autocomplete-content" class="autocomplete-content">
           <ul class="menu_lines"></ul>
         </div>
       </div>
@@ -32,6 +33,7 @@
 
     <main></main>
 
+    <script src="./dom.js"></script>
     <script src="./utils.js"></script>
     <script src="./script.js"></script>
   </body>

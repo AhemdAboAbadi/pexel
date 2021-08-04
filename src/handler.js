@@ -62,7 +62,7 @@ const searchHandler = (response, endPoint) => {
         const jsonData = JSON.parse(data);
         result = filterQuery(query.q, jsonData).slice(0, 20);
       }
-      response.writeHead(302, { 'Content-Type': 'application/json', Location: '/' });
+      response.writeHead(200, { 'Content-Type': 'application/json' });
       response.end(JSON.stringify(result));
     }
   });

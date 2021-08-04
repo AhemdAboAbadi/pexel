@@ -42,7 +42,7 @@ test('when request search with query should return json', (done) => {
   ];
   request(router)
     .get('/search?q=t')
-    .expect(302)
+    .expect(200)
     .expect('Content-Type', 'application/json')
     .end((err, data) => {
       if (err) {

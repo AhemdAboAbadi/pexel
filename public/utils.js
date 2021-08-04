@@ -1,8 +1,9 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-useless-return */
 /* eslint-disable no-unused-vars */
 const unSplashAccessKey = 'V0G0X78-1-W7P0OS0w1Y7bift63SE2YXdP1bYH7jT30';
-const ImgOfUnsplash = `https://api.unsplash.com/photos/?client_id=${unSplashAccessKey}`;
+let page = 1;
 
 const fetch = (url, cb) => {
   const xhr = new XMLHttpRequest();
@@ -16,9 +17,13 @@ const fetch = (url, cb) => {
   xhr.open('GET', url);
   xhr.send();
 };
-fetch(ImgOfUnsplash, (data) =>{
-  for (let index = 0; index < 50; index++) {
-    const imgFromTheUnsplash = data[index].urls.small;
-    console.log(imgFromTheUnsplash);
-  }
-});
+
+const getImages = (query) => {
+  const url = `https://api.unsplash.com/search/photos?query=${query}&page=${page}&client_id=${unSplashAccessKey}`;
+  fetch(url, (data) => {
+    data.results.forEach((image) => {
+      showImages(image, main);
+    });
+  });
+  page++;
+};

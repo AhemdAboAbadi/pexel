@@ -1,85 +1,43 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-plusplus */
-const myLines = [
-  'grove',
-  'compass',
-  'ield',
-  'jar',
-  'lower',
-  'orest',
-  'sweatshirt',
-  'spring',
-  'a111111111',
-  'a22222',
-  'awqqqq',
-  'awt',
-  'asgagw',
-  'arm',
-  'bottle',
-  'snow',
-  'blossom',
-  'reed',
-  'petal',
-  'photographer',
-  'plant',
-  'cross',
-  'grassland',
-  'cherryblossom',
-  'crocus',
-  'clothing',
-  'tree',
-  'lawn',
-  'geranium',
-  'vegetation',
-  'trademark',
-  'soil',
-  'ice',
-  'building',
-  'plateau',
-  'planter',
-  'ashion',
-];
+/* eslint-disable no-undef */
 
-// const btnVoice = document.querySelector('.icon_voice');
-// const btnSearch = document.querySelector('.icon_search');
-const search = document.querySelector('.search');
-const contentAutoComplete = document.querySelector('.content_auto_complete');
-const menuLines = document.querySelector('.menu_lines');
+let globalQuery = '';
 
-search.addEventListener('keyup', () => {
+// search input keyup listener
+search.addEventListener('keyup', (event) => {
   const query = search.value; // value from user - search input
+  globalQuery = query;
   if (!query) {
-    contentAutoComplete.classList.remove('show');
+    autocompleteContent.classList.remove('show');
     return;
   }
-  // for
-  // removeChild(menuLines);
-  contentAutoComplete.classList.add('show');
-  const lineAutoNow = [];
-  // for loop word start like query
-  for (let i = 0; i < myLines.length; i++) {
-    if (myLines[i].startsWith(query) && lineAutoNow.length <= 7) {
-      lineAutoNow.push(myLines[i]);
-    }
-  }
 
-  // for loop new array that send new data to html
-  for (let j = 0; j < lineAutoNow.length; j++) {
-    const li = document.createElement('li');
-    li.classList.add('line_option');
-    li.textContent = lineAutoNow[j];
-    menuLines.appendChild(li);
+  removeChild(menuLines);
+
+  autocompleteContent.classList.add('show');
+
+  fetch(`./search?q=${query}`, (data) => {
+    data.forEach((text) => {
+      createLiElement('line_option', text, menuLines);
+    });
+  });
+
+  if (event.keyCode === 13) {
+    autocompleteContent.classList.remove('show');
+    getImages(globalQuery);
   }
 });
 
-// for remove all content main
-function removeChild(parent) {
-  while (parent.firstChild) {
-    parent.removeChild(parent.firstChild);
+// scroll event listener
+window.addEventListener('scroll', () => {
+  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+  if (clientHeight + scrollTop >= scrollHeight - 50) {
+    getImages(globalQuery);
   }
-}
+});
 
-function sendImage(query) {
-
-}
-sendImage('anime');
+// search button listener
+searchBtn.addEventListener('click', () => {
+  autocompleteContent.classList.remove('show');
+  removeChild(main);
+  getImages(globalQuery);
+});
