@@ -5,11 +5,14 @@ const searchBtn = document.querySelector('#search-icon');
 const search = document.querySelector('#search');
 const menuLines = document.querySelector('.menu_lines');
 const main = document.querySelector('main');
+const body = document.querySelector('body');
 const autocompleteContent = document.querySelector('#autocomplete-content');
 const bowlRecorde = document.querySelector('.svg_recorde');
 const wordsListen = document.querySelector('.words_listen span');
 const closePopVoice = document.querySelector('.close_pop_voice');
 const popListenVoice = document.querySelector('.pop_listen_voice');
+const searchBowl = document.querySelector('.search_bowl');
+const waitLoadData = document.querySelector('.wait_load_data');
 
 const removeChild = (parent) => {
   while (parent.firstChild) {

@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line import/no-extraneous-dependencies
 const request = require('supertest');
-const router = require('./router');
-const filter = require('./utils');
-const dataObject = require('./data.json');
+const router = require('../router');
+const filter = require('../utils/filter');
+const dataObject = require('../data.json');
 
 test('when request home page get 200 status code', (done) => {
   request(router)
