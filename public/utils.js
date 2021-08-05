@@ -19,11 +19,20 @@ const fetch = (url, cb) => {
 };
 
 const getImages = (query) => {
-  const url = `https://api.unsplash.com/search/photos?query=${query}&page=${page}&client_id=${unSplashAccessKey}`;
-  fetch(url, (data) => {
-    data.results.forEach((image) => {
-      showImages(image, main);
+  search.value = '';
+  waitLoadData.classList.add('active');
+  setTimeout(() => {
+    const url = `https://api.unsplash.com/search/photos?query=${query}&page=${page}&client_id=${unSplashAccessKey}`;
+    fetch(url, (data) => {
+      if (data.results.length == 0) {
+        body.classList.add('error');
+      } else {
+        data.results.forEach((image) => {
+          showImages(image, main);
+        });
+      }
     });
-  });
-  page++;
+    page++;
+    waitLoadData.classList.remove('active');
+  }, 1000);
 };

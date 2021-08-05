@@ -1,4 +1,7 @@
-const { homeHandler, publicHandler, searchHandler } = require('./handler');
+// const { homeHandler, publicHandler, searchHandler } = require("./handler");
+const homeHandler = require('./handlers/homeHandler');
+const publicHandler = require('./handlers/publicHandler');
+const searchHandler = require('./handlers/searchHandler');
 
 const router = (request, response) => {
   const endPoint = request.url;

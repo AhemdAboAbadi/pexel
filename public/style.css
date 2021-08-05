@@ -10,14 +10,26 @@ body {
   background-repeat: no-repeat;
   background-position-x: center;
   background-attachment: fixed;
+  background-size: 100% 100%;
 }
 
+body.error {
+  background:url(https://images4.alphacoders.com/987/thumb-1920-987711.jpg) ;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
 nav {
   width: 100%;
   height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(10, 10, 10, 0.356);
 }
 
 .content_nav {
@@ -25,7 +37,7 @@ nav {
   height: 45px;
   display: flex;
   align-items: center;
-  width: 600px;
+  width: 650px;
   justify-content: space-between;
 }
 
@@ -37,7 +49,25 @@ nav {
   background-color: rgb(233, 233, 233);
   border-radius: 4px;
   overflow: hidden;
+  box-shadow: 0 1px 4px .5px rgb(194, 188, 188);
+  
 }
+
+.search_bowl.erorr {
+  box-shadow: 3px 1px 8px 3px rgb(255, 8, 8);
+  animation: moveErorr 0.3s ease-in-out;
+}
+
+@keyframes moveErorr{
+  0%{transform: translateX(-10px);}
+  20%{transform: translateX(10px);}
+  40%{transform: translateX(-10px);}
+  50%{transform: translateX(10px);}
+  70%{transform: translateX(-10px);}
+  90%{transform: translateX(10px);}
+  100%{transform: translateX(-10px);}
+}
+
 
 .svg_voice,
 .svg_search {
@@ -55,6 +85,10 @@ nav {
   width: 50px;
 }
 
+.svg_voice:hover {
+  fill: rgba(231, 77, 77, 0.712);
+
+}
 .svg_search {
   fill: rgb(10, 10, 10);
 }
@@ -115,7 +149,7 @@ img {
   background-color: rgb(233, 233, 233);
   width: 100%;
   height: 90px;
-  z-index: 10;
+  z-index: 100;
   display: none;
 }
 .pop_listen_voice.show {
@@ -192,8 +226,8 @@ img {
 
 .close_pop_voice {
   position: absolute;
-  top: 15px;
-  right: 20px;
+  top: 30px;
+  right: 300px;
   cursor: pointer;
 }
 
@@ -206,8 +240,9 @@ main {
 }
 
 .image_content {
-  max-width: 360px;
-  margin-top: 15px;
+  width: 330px;
+  max-width: 350px;
+  margin-top: 10px;
   height: 280px;
   cursor: pointer;
   transition: all 0.45s ease-out;
@@ -219,26 +254,23 @@ main {
     rgba(66, 93, 245, 0.75),
     rgba(80, 156, 8, 0.75)
   );
+  overflow: hidden;
 }
 
 .card_imgs_ {
   width: 100%;
   height: 100%;
-  background: darkslateblue;
+
   border-radius: 5px;
-}
-.image_content:hover {
-  transform: rotateY(170deg);
+  transition: all 0.5s ease-in-out;
+  object-fit: cover;
 }
 
-/* .img_error{
-  width: 800px;
-  height: 100%;
+
+.card_imgs_:hover {
+  transform: scale(1.2);
 }
-.img_error img{
-  width: 100%;
-height: 100%;
-} */
+
 
 .icon_voice {
   font-size: 30px;
@@ -251,4 +283,40 @@ height: 100%;
   padding: 0.5rem;
   fill: rgb(10, 10, 10);
   cursor: pointer;
+}
+
+.svg_search_By_image{
+  padding-right: 7px;
+  cursor: pointer;
+}
+
+.wait_load_data{
+
+  position: absolute;
+  z-index: 50;
+  top: 40%;
+  left: 40%;
+  width: 200px;
+  height:200px;
+  border-radius: 50%;
+  background-color: #162534;
+  display: none;
+}
+
+.wait_load_data.active{
+  display: inline;
+}
+.loader{
+  width: calc(100% - 16px);
+  height:calc(100% - 16px);
+border-radius: 50%;
+border: 8px solid #162534;
+border-right: 8px solid #09f;
+animation: moveCirvleLoad 3s infinite;
+}
+
+@keyframes moveCirvleLoad{
+  0%{transform: rotate(0deg);}
+  50%{transform: rotate(-180deg);}
+  100%{transform: rotate(-360deg);}
 }
